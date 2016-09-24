@@ -21,7 +21,7 @@ class BinariesController < ApplicationController
 
   def create
     @params = JSON.load request.body
-    @user = User.last ### TODO CHANGE TO CURRENT USER
+    @user = User.find(@params["id"].to_i)
     @binary = @user.binaries.new
     @binary.votesA = 1
     @binary.votesB = 1
