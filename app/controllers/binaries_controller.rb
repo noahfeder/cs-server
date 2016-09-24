@@ -22,6 +22,8 @@ class BinariesController < ApplicationController
   def create
     @params = JSON.load request.body
     @user = User.find(@params["id"].to_i)
+    byebug
+    ## Time.now.to_i is current epoch seconds
     @binary = @user.binaries.new
     @binary.votesA = 1
     @binary.votesB = 1
