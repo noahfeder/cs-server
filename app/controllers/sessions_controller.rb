@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if !@user
       render json: {error: true, message: "Invalid username/password"}
     else
-      render json: {error: false, message: "Success", id: @user.id}
+      render json: {error: false, message: "Success", data: @user}
     end
   end
 

@@ -22,9 +22,8 @@ class BinariesController < ApplicationController
   def create
     @params = JSON.load request.body
     @user = User.find(@params["id"].to_i)
-    byebug
-    ## Time.now.to_i is current epoch seconds
     @binary = @user.binaries.new
+    @binary.expiration = calculateTime(@params["type"], @params["number"], @params["timeNow"])
     @binary.votesA = 1
     @binary.votesB = 1
     @binary.choiceA = @params["choiceA"]
@@ -33,5 +32,16 @@ class BinariesController < ApplicationController
     @binary.content = @params["content"]
     @binary.save
     render json: @binary
+  end
+
+  def calculateTime(type,number,start)
+    case type
+      when "hours"
+        return number * 1.hours.to_i + start
+      when "days"
+        return number * 1.days.to_i + start
+      when minutes
+        return number * 1.minutes.to_i + start
+    end
   end
 end
