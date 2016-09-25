@@ -40,7 +40,7 @@ class BinariesController < ApplicationController
         return number * 1.hours.to_i + start
       when "days"
         return number * 1.days.to_i + start
-      when minutes
+      when "minutes"
         return number * 1.minutes.to_i + start
     end
   end
