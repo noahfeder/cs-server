@@ -13,7 +13,8 @@
 #  updated_at :datetime         not null
 #  choiceA    :string
 #  choiceB    :string
-#  expiration :string
+#  expiration :integer
+#  username   :string
 #
 
 class Binary < ApplicationRecord

@@ -1,21 +1,27 @@
 Binary.destroy_all
 User.destroy_all
 
-@user = User.create({
-  fname: "Noah", lname: "Feder",
-  email: "noah.feder@gmail.com",
-  username: "stavro510", active: true
-  })
-@user.password = "asdf"
-@user.save
+@userA = User.create({
+  username: "asdf", active: true, password: "asdf"
+})
 
-10.times do
-  @user.binaries.create({
-    active: true, name: Faker::Hipster.word,
-    content: Faker::Hipster.sentences(2),
-    votesA: Faker::Number.number(2),
-    votesB: Faker::Number.number(2)
-    })
+@userB = User.create({
+  username: "test", active: true, password: "test"
+})
+
+[@userA, @userB].each do |user|
+  5.times do
+    user.binaries.create({
+      active: true,
+      name: Faker::Hipster.word,
+      content: Faker::Hipster.sentence,
+      votesA: 1,
+      votesB: 1,
+      choiceA: Faker::Hipster.word,
+      choiceB: Faker::Hipster.word,
+      username: user.username,
+      expiration: Time.now.to_i + Faker::Number.between(3600, 90000)
+      })
+  end
 end
-
 puts "Created #{User.count} users and #{Binary.count} binaries"
