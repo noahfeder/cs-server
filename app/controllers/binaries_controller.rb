@@ -11,13 +11,23 @@ class BinariesController < ApplicationController
   end
 
   def update
+    @params = JSON.load request.body
     @binary = Binary.find(params[:id])
     if (@binary.expiration > Time.now.to_i)
-      @choice = params[:choice]
-      @binary.votesA += 1 if @choice == 'A'
-      @binary.votesB += 1 if @choice == 'B'
-      @binary.save
-      render json: @binary
+      @vote = @binary.votes.find_by_user_id(@params["user_id"])
+      if @vote.nil?
+        @choice = @params["choice"]
+        @binary.votes.create({
+          user_id: @params["user_id"],
+          value: @choice
+        })
+        @binary.votesA += 1 if @choice == 1
+        @binary.votesB += 1 if @choice == 2
+        @binary.save
+        render json: @binary
+      else
+        render json: {error: true, message: "Can't vote twice!"}
+      end
     else
       render json: {error: true, message: "Sorry, voting for this decision has expired"}
     end
