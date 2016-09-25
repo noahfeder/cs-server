@@ -1,7 +1,7 @@
 class BinariesController < ApplicationController
   protect_from_forgery except: [:index, :show, :update]
   def index
-    @binaries = Binary.all.order("RANDOM()")
+    @binaries = Binary.where("expiration >= :timenow", timenow: Time.now.to_i)
     render json: @binaries
   end
 
