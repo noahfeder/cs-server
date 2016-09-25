@@ -27,7 +27,7 @@ class BinariesController < ApplicationController
     @params = JSON.load request.body
     @user = User.find(@params["id"].to_i)
     @binary = @user.binaries.new
-    @binary.expiration = calculateTime(@params["type"], @params["number"], @params["timeNow"])
+    @binary.expiration = calculateTime(@params["type"], @params["number"])
     @binary.votesA = 1
     @binary.votesB = 1
     @binary.choiceA = @params["choiceA"]
@@ -40,14 +40,14 @@ class BinariesController < ApplicationController
     render json: @binary
   end
 
-  def calculateTime(type,number,start)
+  def calculateTime(type,number)
     case type
       when "hours"
-        return number * 1.hours.to_i + start
+        return number.hours.to_i + Time.now.to_i
       when "days"
-        return number * 1.days.to_i + start
+        return number.days.to_i + Time.now.to_i
       when "minutes"
-        return number * 1.minutes.to_i + start
+        return number.minutes.to_i + Time.now.to_i
     end
   end
 end

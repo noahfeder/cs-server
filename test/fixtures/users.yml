@@ -3,8 +3,6 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
-#  fname           :string
-#  lname           :string
 #  email           :string
 #  password_digest :string
 #  username        :string
