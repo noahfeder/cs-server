@@ -4,6 +4,7 @@
 #   logout POST  /logout(.:format)       sessions#destroy
 #    login POST  /login(.:format)        sessions#create
 #   signup POST  /signup(.:format)       sessions#newuser
+#     user GET   /user(.:format)         binaries#user
 #     root GET   /                       binaries#index
 # binaries GET   /binaries(.:format)     binaries#index
 #          POST  /binaries(.:format)     binaries#create
@@ -18,6 +19,8 @@ Rails.application.routes.draw do
   post '/login' => 'sessions#create'
 
   post '/signup' => 'sessions#newuser'
+
+  get '/user/:id' => 'binaries#user'
 
   root to: 'binaries#index'
   resources :binaries, only: [:index, :show, :update, :create]
