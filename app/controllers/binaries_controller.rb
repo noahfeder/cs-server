@@ -6,8 +6,12 @@ class BinariesController < ApplicationController
   end
 
   def user
-    @binaries = Binary.where(user_id: params[:id]).order(:expiration)
-    render json: @binaries
+    @binaries = Binary.where(user_id: params[:id])
+    if @binaries[0].nil?
+      render json: {error: true, message: "You haven't asked for any help yet!"}
+    else
+      render json: @binaries
+    end
   end
 
   def show
