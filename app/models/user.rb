@@ -14,6 +14,6 @@
 class User < ApplicationRecord
   has_many :binaries
   has_secure_password
-  validates :username, uniqueness: true, length: {maximum: 20}
+  validates :username, uniqueness: true, length: {minimum: 4, maximum: 20}
   validates :password, length: {minimum: 8}
 end
