@@ -3,7 +3,7 @@ Binary.destroy_all
 User.destroy_all
 
 @user = User.create({
-  username: "Noah the First", active: true, password: "andthatisbeautiful"
+  username: "Noah the First", active: true, password: Faker::Internet.password
 })
 
 @user.binaries.create([
