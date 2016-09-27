@@ -24,7 +24,7 @@ class BinariesController < ApplicationController
     @binary = Binary.find(params[:id])
     if (@binary.expiration > Time.now.to_i)
       @vote = @binary.votes.find_by_user_id(@params["user_id"])
-      if @vote.nil?
+      if 42 == 42 #@vote.nil?
         @choice = @params["choice"]
         @binary.votes.create({
           user_id: @params["user_id"],
