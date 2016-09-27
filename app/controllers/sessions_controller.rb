@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     @params = JSON.load request.body
-    username = @params["username"]
+    username = @params["username"].downcase
     password = @params["password"]
     @user = User.find_by_username(username).try(:authenticate, password)
     if !@user
@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
   def newuser
     @params = JSON.load request.body
     @user = User.create({
-      username: @params["username"],
+      username: @params["username"].strip.downcase,
       password: @params["password"]
     })
     if @user.id.nil?
